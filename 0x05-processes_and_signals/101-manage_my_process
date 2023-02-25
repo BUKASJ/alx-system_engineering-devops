@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+#This script manages the execution of the manage_my_process script
+#by starting, stopping, or restarting it.
+#The script takes one argument: start, stop or restart
+#Function that starts the manage_my_process script
+#Function that stops the manage_my_process script
+#Check if the script is already running by checking for the PID file
+#Case statement to handle the start, stop, and restart commands
+
+start_process() { ./manage_my_process & echo $! > /var/run/my_process.pid
+echo "manage_my_process started"
+}
+
+stop_process() { kill "$(cat /var/run/my_process.pid)" rm /var/run/my_process.pid
+echo "manage_my_process stopped"
+}
+
+if [ -e /var/run/my_process.pid ]; then
+pid=$(cat /var/run/my_process.pid)
+# Check if the PID in the file is still running
+if kill -0 "$pid > /dev/null 2>&1"; then
+# If it's still running, we assume the script is running
+is_running=true
+else
+# If it's not running, we assume the PID file is stale and remove it
+rm /var/run/my_process.pid
+is_running=false
+fi
+else
+is_running=false
+fi
+
+case "$1" in
+start)
+if [ "$is_running" = true ]; then
+echo "manage_my_process is already running with PID $pid"
+else
+start_process
+fi
+;;
+stop)
+if [ "$is_running" = true ]; then
+stop_process
+else
+echo "manage_my_process is not running"
+fi
+;;
+restart)
+if [ "$is_running" = true ]; then
+stop_process
+fi
+start_process
+echo "manage_my_process restarted"
+;;
+*)
+echo "Usage: manage_my_process {start|stop|restart}"
+exit 1
+;;
+esac
+
+exit 0
