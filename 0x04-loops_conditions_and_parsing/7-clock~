@@ -8,16 +8,16 @@ hour=0
 minute=1
 
 while [ $hour -lt 13 ]; do
-if [ $hour -lt 10 ]; then
-echo "0$hour:$minute"
-else
-echo "$hour:$minute"
-fi
+	if [ $hour -lt 10 ]; then
+		echo "0$hour:$minute"
+	else
+		echo "$hour:$minute"
+	fi
 
-minute=$((minute+1))
+	minute=$((minute+1))
 
-if [ $minute -eq 60 ]; then
-minute=1
-hour=$((hour+1))
-fi
+	if [ $minute -eq 60 ]; then
+		minute=1
+		hour=$((hour+1))
+	fi
 done | head -n 70
