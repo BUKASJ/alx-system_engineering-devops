@@ -4,22 +4,17 @@
 #displays 9 and then bad luck from Japan for the 9th loop iteration
 #displays 17 and then bad luck from Italy for the 17th loop iteration
 
-i=1
-while [ $i -le 20 ]
+counter=1
+while [ $counter -le 20 ]
 do
-case $i in
-4)
-echo "$i bad luck from China"
-;;
-9)
-echo "$i bad luck from Japan"
-;;
-17)
-echo "$i bad luck from Italy"
-;;
-*)
-echo $i
-;;
-esac
-i=$((i+1))
+	case $counter in
+		4)
+			echo "4 bad luck from China" ;;
+		9)
+			echo "9 bad luck from Japan" ;;
+		17)
+			echo "17 bad luck from Italy" ;;
+		*) echo "$counter" ;;
+	esac
+	((counter++))
 done
