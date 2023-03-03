@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+echo "Listening Ports:"
+
+netstat -tln | grep LISTEN | while read line ; do
+	protocol=$(echo $line | awk '{print $1}')
+	local_address=$(echo $line | awk '{print $4}')
+	pid=$(echo $line | awk '{print $7}' | cut -d '/' -f1)
+	program=$(echo $(ps -p $pid -o comm=))
+	echo "Protocol: $protocol - Local Address: $local_address - PID:
+	      $pid - Program Name: $program"
+done
