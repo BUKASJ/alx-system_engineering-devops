@@ -2,4 +2,4 @@
 
 # This script listens on port 98 on localhost.
 
-nc -lk 127.0.0.2 98
+nc -lk localhost 98
