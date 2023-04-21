@@ -1,4 +1,4 @@
-# install puppet-lint -v 2.1.0 from pip3
+# install flask -v 2.1.0 from pip3
 
 class flask {
   package { 'python3-pip':
