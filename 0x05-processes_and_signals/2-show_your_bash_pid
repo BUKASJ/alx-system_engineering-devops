@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 # This script finds and displays lines containing the word "bash" in currently running processess
-#
+
 ps aux | grep bash
