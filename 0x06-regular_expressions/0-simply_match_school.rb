@@ -10,3 +10,11 @@ def match_school(input)
     puts ""
   end
 end
+
+# Check if an argument is provided
+if ARGV.empty?
+  puts ""
+else
+  input = ARGV[0]
+  match_school(input)
+end
