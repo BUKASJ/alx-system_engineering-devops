@@ -11,9 +11,9 @@ def match_school(input)
   end
 end
 
-# Check if an argument is provided
+
 if ARGV.empty?
-  puts ""
+  putc ""
 else
   input = ARGV[0]
   match_school(input)
