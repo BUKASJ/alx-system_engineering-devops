@@ -5,14 +5,9 @@
 # and prints "I am invincible!!!" upon receiving a SIGTERM signal.
 
 
-
 trap 'echo "I am invincible!!!"' SIGTERM
-
-while true; do
-    echo "To infinity and beyond indefinitely"
+while true
+do
+    echo "To infinity and beyond"
     sleep 2
 done
-
-# This script kills the 7-highlander process instead of the 4-to_infinity_and_beyond one.
-
-kill $(pgrep 7-highlander)
