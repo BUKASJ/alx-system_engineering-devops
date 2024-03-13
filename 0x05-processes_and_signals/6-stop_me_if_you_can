@@ -3,7 +3,4 @@
 # This script stops the process named "4-to-infinity_and_beyond" without using kill or killall
 
 
-pid=$(pgrep 4-to_infinity_and_beyond)
-if [ -n "$pid" ]; then
-    kill -TERM "$pid"
-fi
+pkill -f 4-to_infinity_and_beyond
