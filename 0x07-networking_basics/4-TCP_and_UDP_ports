@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+#This script displays listening port
+# -l shows detailed information about listening socket
+# -p shows the process ID and name of the program that owns the socket
+
+netstat -lp
