@@ -4,4 +4,15 @@
 # -l shows detailed information about listening socket
 # -p shows the process ID and name of the program that owns the socket
 
-ss -tnlp -H | awk '{print $4, $6, $NF}' | head -n -1 | column -t
+listening_ports=$(netstat -tuln | awk '/^tcp/ {print $4,$7}')
+
+echo "Listening Ports:"
+echo "PID   Port   Program"
+
+# Loop through each listening port and extract PID and program name
+while read -r line; do
+    port=$(echo "$line" | awk '{print $1}')
+    pid=$(echo "$line" | awk -F'/' '{print $NF}')
+    program=$(basename "$(readlink /proc/$pid/exe)")
+    echo "$pid   $port   $program"
+done <<< "$listening_ports"
