@@ -1,18 +1,22 @@
 #!/usr/bin/env bash
 
 #This script displays listening port
-# -l shows detailed information about listening socket
-# -p shows the process ID and name of the program that owns the socket
 
-listening_ports=$(netstat -tuln | awk '/^tcp/ {print $4,$7}')
+listening_ports=$(netstat -tuln | awk '/^tcp/ || /^udp/')
 
-echo "Listening Ports:"
-echo "PID   Port   Program"
+# Print the header
+echo "Active Internet connections (only servers)"
+echo "Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name"
 
-# Loop through each listening port and extract PID and program name
-while read -r line; do
-    port=$(echo "$line" | awk '{print $1}')
-    pid=$(echo "$line" | awk -F'/' '{print $NF}')
-    program=$(basename "$(readlink /proc/$pid/exe)")
-    echo "$pid   $port   $program"
-done <<< "$listening_ports"
+# Print listening ports and their details
+echo "$listening_ports"
+
+# Print separator for better readability
+echo "Active UNIX domain sockets (only servers)"
+echo "Proto RefCnt Flags       Type       State         I-Node   PID/Program name    Path"
+
+# Use netstat to display listening UNIX domain sockets and their PIDs
+unix_sockets=$(netstat -lx | grep "^unix")
+
+# Print listening UNIX domain sockets and their details
+echo "$unix_sockets"
