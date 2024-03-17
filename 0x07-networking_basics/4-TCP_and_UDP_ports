@@ -2,21 +2,12 @@
 
 #This script displays listening port
 
-listening_ports=$(netstat -tuln | awk '/^tcp/ || /^udp/')
+# Show active connections (TCP and UDP)
+printf "Active Internet connections (only servers)\n"
+printf "Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name\n"
+ss -tnlp -H | awk '{print $1, $2, $3, $4, $5, $6, $NF}' | grep 'LISTEN' | column -t
 
-# Print the header
-echo "Active Internet connections (only servers)"
-echo "Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name"
-
-# Print listening ports and their details
-echo "$listening_ports"
-
-# Print separator for better readability
-echo "Active UNIX domain sockets (only servers)"
-echo "Proto RefCnt Flags       Type       State         I-Node   PID/Program name    Path"
-
-# Use netstat to display listening UNIX domain sockets and their PIDs
-unix_sockets=$(netstat -lx | grep "^unix")
-
-# Print listening UNIX domain sockets and their details
-echo "$unix_sockets"
+# Show active Unix domain sockets (optional)
+printf "\nActive UNIX domain sockets (only servers)\n"
+printf "Proto RefCnt Flags       Type       State         I-Node   PID/Program name    Path\n"
+ss -Uanp | awk '{print $1, $2, $3, $4, $5, $6, $NF}' | grep 'LISTEN' | column -t
