@@ -4,4 +4,4 @@
 # -l shows detailed information about listening socket
 # -p shows the process ID and name of the program that owns the socket
 
-netstat -lp
+ss -tnlp -H | awk '{print $4, $6, $NF}' | head -n -1 | column -t
