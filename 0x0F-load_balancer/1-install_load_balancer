@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+#This script installs and configures HAproxy to load balance traffic
+#between web-01 and web-02 servers
+
+# Install HAproxy
+sudo apt-get update
+sudo apt-get install -y haproxy
+
+# Configure HAproxy
+sudo sed -i 's/^ENABLED=.*/ENABLED=1/' /etc/default/haproxy
+sudo mv /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg.orig
+
+cat <<EOF | sudo tee /etc/haproxy/haproxy.cfg
+frontend http_front
+    bind *:80
+    stats uri /haproxy?stats
+    default_backend http_back
+
+backend http_back
+    balance roundrobin
+    server web-01 [STUDENT_ID]-web-01:80 check
+    server web-02 [STUDENT_ID]-web-02:80 check
+EOF
+
+# Restart HAproxy
+sudo service haproxy restart
