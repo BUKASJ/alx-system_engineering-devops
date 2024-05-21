@@ -1,0 +1,70 @@
+Here's a breakdown of what happens when you type https://www.google.com in your browser and press Enter:
+
+
+1. DNS Request:
+
+Your browser doesn't understand domain names like "google.com." It needs an IP address to connect to the server.
+The browser initiates a DNS (Domain Name System) request. This request acts like a phonebook lookup.
+The request goes to a local DNS resolver (often provided by your internet service provider) or a public DNS server.
+The DNS server checks its records and retrieves the IP address associated with "google.com."
+
+
+2. TCP/IP:
+
+Once the browser has the IP address (e.g., 142.250.184.196), it can initiate communication with the Google server using the TCP/IP (Transmission Control Protocol/Internet Protocol) suite.
+TCP establishes a reliable connection between your computer and the server, ensuring data arrives in the correct order and without errors.
+IP handles the actual routing of data packets over the internet.
+
+
+3. Firewall (Optional):
+
+Your computer or network might have a firewall in place.
+The firewall acts as a security barrier, checking if the incoming connection (from Google) is allowed.
+If the firewall allows the connection based on its rules, it proceeds.
+
+
+4. HTTPS/SSL:
+
+Since the URL starts with "https," the browser initiates a secure connection using HTTPS (Hypertext Transfer Protocol Secure).
+HTTPS uses SSL/TLS (Secure Sockets Layer/Transport Layer Security) to encrypt communication between your browser and the server. This protects data from eavesdropping or tampering.
+The browser establishes a secure connection by performing a handshake with the server, verifying the server's identity using its SSL certificate.
+
+
+5. Load Balancer (Optional):
+
+Large websites like Google often use load balancers to distribute incoming traffic across multiple web servers.
+The load balancer acts as a traffic director, ensuring requests are routed to an available server to handle the load efficiently.
+
+
+6. Web Server:
+
+The browser sends an HTTP GET request to the web server (identified by the IP address).
+The request specifies the resource you're trying to access (in this case, the homepage "/" of "google.com").
+The web server receives the request and processes it.
+
+
+7. Application Server (Optional):
+
+The web server might delegate tasks to application servers.
+Application servers handle dynamic content generation, interacting with databases or other services to create the web page.
+In Google's case, application servers likely generate the dynamic content you see on the homepage.
+
+
+8. Database (Optional):
+
+Depending on the requested resource, the application server might need to retrieve data from a database.
+The database stores information relevant to the website, like user accounts, search results, or product details.
+The application server queries the database, retrieves the data, and uses it to build the web page.
+
+
+9. Response:
+
+The web server (or application server) prepares a response containing the HTML code for the Google homepage, along with other resources like images and stylesheets.
+The response is sent back to your browser over the secure HTTPS connection.
+
+
+10. Rendering:
+
+Your browser receives the response and interprets the HTML code.
+It fetches additional resources like images and stylesheets based on the instructions in the HTML.
+The browser renders the web page on your screen, displaying the Google homepage.
