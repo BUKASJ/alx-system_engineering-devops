@@ -1,0 +1,43 @@
+#Install UFW if it's not already installed
+sudo apt-get update
+sudo apt-get install ufw
+
+#Enable ufw
+sudo ufw enable
+
+#Allow necessary ports(SSH, HTTP, HTTPS)
+sudo ufw allow 22/tcp
+sudo ufw allow 80/tcp
+sudo ufw allow 443/tcp
+
+#Create a UFW rule to forward port 8080 to port 80
+sudo nano /etc/ufw/applications.d/forwarding
+
+#Add the following content to this file
+[Port Forwarding]
+title=Port Forwarding
+description=Forward port 8080 to port 80
+ports=8080/tcp|80/tcp
+
+#Apply the UFW forwarding rule
+sudo ufw allow from any to any port 8080 proto tcp
+
+#Edit /etc/ufw/before.rules to include a port forwarding rule
+sudo nano /etc/ufw/before.rules
+
+#Add the following lines before the *filter line
+# nat Table rules
+*nat
+:PREROUTING ACCEPT [0:0]
+:INPUT ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+:POSTROUTING ACCEPT [0:0]
+
+# Forward port 8080 to 80
+-A PREROUTING -p tcp --dport 8080 -j REDIRECT --to-port 80
+
+COMMIT
+
+#Restart UFW to apply changes
+sudo ufw disable
+sudo ufw enable
